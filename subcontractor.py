@@ -14,16 +14,16 @@ class subcontractor_moves(osv.osv):
         for m in sub_obj.move_lines:
             list_moves.append(m.id)
         
-            out_vals={
+        out_vals={
                       'partner_id':sup_partner,
                       'picking_type_id':m.picking_type_id.id,
                       'location_id':m.location_id.id,
                       'location_dest_id':m.location_dest_id.id,
                       'group_id':m.group_id.id,
                       }
-            pick_id=self.pool.get('stock.picking').create(cr,uid,out_vals,context=context)
+        pick_id=self.pool.get('stock.picking').create(cr,uid,out_vals,context=context)
                 
-            self.pool.get('stock.move').write(cr,uid,list_moves,{
+        self.pool.get('stock.move').write(cr,uid,list_moves,{
                                                                  'picking_id':pick_id,
                                                                  },context=context)
         
