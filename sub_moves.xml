@@ -1,7 +1,7 @@
 <openerp>
 	<data>
 		<record id='subcontractor_move_view' model='ir.ui.view'>
-			<field name='name'>subcontractor move form view</field>
+			<field name='name'>sub.contractor move form view</field>
 			<field name='model'>subcontractor.moves</field>
 			<field name='arch' type='xml'>
 				<form string = "subcontractor moves form view">
@@ -28,6 +28,65 @@
             <field name="arch" type="xml">
             	<xpath expr="/form/header/button[@name='action_cancel']" position='after'>
 					<button name="open_sub_wizard" type="object" string="Send To Subcontractor"/>
+				</xpath>
+            </field>
+        </record>
+        
+        <!-- <record id='action_delivery_refund' model='ir.actions.act_window'>
+			<field name="name">refund</field>
+            <field name="type">ir.actions.act_window</field>
+			<field name="res_model">stock.picking</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','done'),('invoice_state','=','invoiced')]</field>
+            <field name="view_mode">tree,form</field>
+		</record>
+		<menuitem id='menuitem_refund' name='Refunded Delivery Orders' parent='base.menu_sales' action="action_delivery_refund" /> -->
+		
+		<record id="for_button_view" model="ir.ui.view">
+            <field name="name">my module form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/header/button[@name='action_cancel']" position='after'>
+					<button name="open_sub_wizard" type="object" string="Send To Subcontractor"/>
+				</xpath>
+            </field>
+        </record>
+        
+        
+        <!-- <record id="view_form_incoming_refunds" model="ir.ui.view">
+            <field name="name">form.incoming.refunds</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="groups_id" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//div[@name='buttons']" position="inside">
+	            	<button class="oe_inline oe_stat_button" name="action_view_refunds" type="object">
+	                       <field string="Incoming Refunds" name="count_refunds" widget="statinfo"/>
+	                </button>
+                </xpath>
+            </field>
+        </record> -->
+        
+        <record id="button_incoming_shippment" model="ir.ui.view">
+            <field name="name">incoming shipment</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/header/button[@name='action_cancel']" position='after'>
+					<button name="show_incoming_ships" type="object" string="Incoming Shippment"/>
+					<button name="show_customer_refunds" type="object" string="Customer Refunds"/>
+				</xpath>
+            </field>
+        </record>
+        
+        <record id="invoice_to_supplier" model="ir.ui.view">
+            <field name="name">invoice to supplier</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/header/button[@name='invoice_cancel']" position='after'>
+					<button name="send_invoice_to_supplier" type="object" string="Send Invoice to Supplier"/>
 				</xpath>
             </field>
         </record>
